@@ -29,20 +29,13 @@ public class WsServerEndpont {
     @OnMessage
     public String onMessage(String msg){
         log.info("收到消息：" + msg);
-        return "已收到";
+        return "收到";
     }
 
     @OnClose
     public void onClose(Session session){
         sessionMap.remove(session.getId());
         log.info("websocket已断开");
-    }
-
-    @Scheduled(fixedRate = 2000)
-    public void sendMsg() throws IOException {
-        for (String key:sessionMap.keySet()){
-            sessionMap.get(key).getBasicRemote().sendText("心跳");
-        }
     }
 
 }
